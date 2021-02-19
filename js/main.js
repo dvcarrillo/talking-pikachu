@@ -9,6 +9,7 @@ var micSensitivity;
 var isMouthOpen = false;
 var imgElement;
 var micMsg;
+var incompatibleOverlay;
 
 var micLevel;
 
@@ -16,10 +17,17 @@ var micLevel;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 window.onload = () => {
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     imgElement = document.getElementById('pikachu');
     micMsg = document.getElementById('micMsg');
     micLevel = document.getElementById('micLevel');
     micSensitivity = document.getElementById('micSensitivity').value;
+    incompatibleOverlay = document.querySelector('.incompatibleOverlay');
+
+    if (isSafari) {
+        incompatibleOverlay.style.display = 'block';
+    }
 };
 
 function resumeAudioRecording() {

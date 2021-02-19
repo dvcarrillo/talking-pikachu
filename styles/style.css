@@ -12,12 +12,30 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.incompatibleOverlay {
+    display: none;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    padding: 20vw;
+    z-index: 100;
+    background-color: rgba(200, 200, 200, 0.1);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.incompatibleOverlay > h1 {
+    font-size: 3rem;
+}
+
 .img-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    z-index: 1;
 }
 
 .mic-sensitivity-container {
