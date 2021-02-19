@@ -36,11 +36,11 @@ body {
     flex-direction: column;
     height: 100vh;
     z-index: 1;
+    padding: 50px;
 }
 
 .mic-sensitivity-container {
     margin-top: 3vh;
-    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
