@@ -20,6 +20,18 @@ body {
     height: 100vh;
 }
 
+.mic-sensitivity-container {
+    margin-top: 3vh;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mic-sensitivity-container > img {
+    margin-right: 5px;
+}
+
 #pikachu {
     height: 60vh;
     transition: 500ms;

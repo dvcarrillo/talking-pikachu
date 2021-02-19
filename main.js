@@ -5,6 +5,7 @@ var audioContext = null;
 var meter = null;
 var rafID = null;
 var mediaStreamSource = null;
+var micSensitivity;
 var isMouthOpen = false;
 var imgElement;
 var micMsg;
@@ -18,6 +19,7 @@ window.onload = () => {
     imgElement = document.getElementById('pikachu');
     micMsg = document.getElementById('micMsg');
     micLevel = document.getElementById('micLevel');
+    micSensitivity = document.getElementById('micSensitivity').value;
 };
 
 function resumeAudioRecording() {
@@ -81,8 +83,7 @@ function onMicrophoneGranted(stream) {
  * This function is executed repeatedly
  */
 function updateImage(time) {
-    micLevel.innerHTML = parseFloat(meter.volume).toFixed(3);
-    if (meter.volume > 0.02) {
+    if (meter.volume > (0.02 / micSensitivity)) {
         if (!isMouthOpen) {
             openMouth();
         } else {
@@ -102,4 +103,8 @@ function openMouth() {
 function closeMouth() {
     imgElement.src = 'images/closed.jpg';
     isMouthOpen = false;
+}
+
+function updateMicSensitivity(value) {
+    micSensitivity = value;
 }
