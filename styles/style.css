@@ -55,7 +55,7 @@ body {
     transition: 500ms;
 }
 
-img:hover {
+#pikachu:hover {
     cursor: pointer;
 }
 
