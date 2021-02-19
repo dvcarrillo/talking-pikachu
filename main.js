@@ -12,9 +12,6 @@ var micMsg;
 // Retrieve AudioContext with all the prefixes of the browsers
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-// Get an audio context
-audioContext = new AudioContext();
-
 window.onload = () => {
     pikachuImg = document.getElementById('pikachu');
     micMsg = document.getElementById('micMsg');
@@ -22,6 +19,8 @@ window.onload = () => {
 
 function resumeAudioRecording() {
     if (mediaStreamSource == null) {
+        // Get an audio context
+        audioContext = new AudioContext();
         micMsg.style.opacity = '0';
 
         // Try to get access to the microphone
