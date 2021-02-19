@@ -6,7 +6,7 @@ var meter = null;
 var rafID = null;
 var mediaStreamSource = null;
 var isMouthOpen = false;
-var pikachuImg;
+var imgElement;
 var micMsg;
 
 var micLevel;
@@ -15,7 +15,7 @@ var micLevel;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 window.onload = () => {
-    pikachuImg = document.getElementById('pikachu');
+    imgElement = document.getElementById('pikachu');
     micMsg = document.getElementById('micMsg');
     micLevel = document.getElementById('micLevel');
 };
@@ -65,7 +65,7 @@ function onMicrophoneDenied() {
  * Callback triggered if the access to the microphone is granted
  */
 function onMicrophoneGranted(stream) {
-    pikachuImg.style.opacity = '1';
+    imgElement.style.opacity = '1';
 
     // Create an AudioNode from the stream.
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
@@ -74,31 +74,32 @@ function onMicrophoneGranted(stream) {
     mediaStreamSource.connect(meter);
 
     // Trigger callback that shows the level of the "Volume Meter"
-    onLevelChange();
+    setInterval(updateImage, 100);
 }
 
 /**
  * This function is executed repeatedly
  */
-function onLevelChange(time) {
+function updateImage(time) {
     micLevel.innerHTML = parseFloat(meter.volume).toFixed(3);
-    if ((meter.volume > 0.05) && !isMouthOpen) {
-        this.openMouth();
-        setTimeout(() => {
+    if (meter.volume > 0.02) {
+        if (!isMouthOpen) {
+            openMouth();
+        } else {
             closeMouth();
-        }, 20);
+        }
+    } else {
+        closeMouth();
     }
 
-    // set up the next callback
-    rafID = window.requestAnimationFrame(onLevelChange);
 }
 
 function openMouth() {
-    pikachuImg.src = 'images/open.jpg';
+    imgElement.src = 'images/open.jpg';
     isMouthOpen = true;
 }
 
 function closeMouth() {
-    pikachuImg.src = 'images/closed.jpg';
+    imgElement.src = 'images/closed.jpg';
     isMouthOpen = false;
 }
