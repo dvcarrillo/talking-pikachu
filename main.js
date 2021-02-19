@@ -9,12 +9,15 @@ var isMouthOpen = false;
 var pikachuImg;
 var micMsg;
 
+var micLevel;
+
 // Retrieve AudioContext with all the prefixes of the browsers
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 window.onload = () => {
     pikachuImg = document.getElementById('pikachu');
     micMsg = document.getElementById('micMsg');
+    micLevel = document.getElementById('micLevel');
 };
 
 function resumeAudioRecording() {
@@ -78,15 +81,13 @@ function onMicrophoneGranted(stream) {
  * This function is executed repeatedly
  */
 function onLevelChange(time) {
+    micLevel.innerHTML = parseFloat(meter.volume).toFixed(3);
     if ((meter.volume > 0.05) && !isMouthOpen) {
         this.openMouth();
         setTimeout(() => {
             closeMouth();
         }, 20);
     }
-    // else {
-    //     this.closeMouth();
-    // }
 
     // set up the next callback
     rafID = window.requestAnimationFrame(onLevelChange);
